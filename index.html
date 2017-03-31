@@ -137,17 +137,17 @@
 
             var d_y = ar_s[0];
             var d_M = ar_s[1];
-            var d_d = ar_s[2];
+            var d_d = isNaN(ar_s[2]) ? 1 : ar_s[2];
 
-            var d_h = ar_s[3];
-            var d_m = ar_s[4];
-            var d_s = ar_s[5];
+            var d_h = isNaN(ar_s[3]) ? 0 : ar_s[3];
+            var d_m = isNaN(ar_s[4]) ? 0 : ar_s[4];
+            var d_s = isNaN(ar_s[5]) ? 0 : ar_s[5];
 
             var d = new Date();
 
-            var Date_A = new Date(d_y, d_M-1, d_d, d_h, d_m, d_s);
-            var Date_B = new Date(d.getFullYear(), d.getMonth() , d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
-            var Date_C =new Date( Date_B - Date_A);
+            var Date_A = new Date(d_y, d_M - 1, d_d, d_h, d_m, d_s);
+            var Date_B = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+            var Date_C = new Date(Date_B - Date_A);
 
 
             fun_修改標題(1);
@@ -214,14 +214,43 @@
         */
         function show_完整年月日(Date_C) {
 
+            var dd = Date_C.getTime();
+
+
+
+            var d_y = Math.floor(dd / 1000 / 60 / 60 / 24 / 365);
+            dd -= (d_y * 1000 * 60 * 60 * 24 * 30 * 12);
+
+            dd -= (d_y * 5 * 1000 * 60 * 60 * 24);
+
+            var d_M = Math.floor(dd / 1000 / 60 / 60 / 24 / 30);
+            dd -= (d_M * 1000 * 60 * 60 * 24 * 30);
+
+            var d_d = Math.floor(dd / 1000 / 60 / 60 / 24);
+            dd -= (d_d * 1000 * 60 * 60 * 24);
+
+            var d_h = Math.floor(dd / 1000 / 60 / 60);
+            dd -= (d_h * 1000 * 60 * 60);
+
+            var d_m = Math.floor(dd / 1000 / 60);
+            dd -= d_m * 1000 * 60;
+
+            var d_s = Math.floor(dd / 1000);
+            dd -= d_s * 1000;
+
+
+
+
+
+            /*
             var d_y = Date_C.getFullYear() - 1970;
             var d_M = Date_C.getMonth();
-            var d_d = Date_C.getDate() - 1;
+            var d_d = Date_C.getDate() ;
 
             var d_h = Date_C.getUTCHours();
             var d_m = Date_C.getUTCMinutes();
             var d_s = Date_C.getUTCSeconds();
-
+            */
             var sum = "";
 
             if (d_y != 0) {
@@ -232,9 +261,6 @@
             }
             if (d_d != 0) {
                 sum += d_d + "日  ";
-            }
-            if (d_h != 0) {
-                sum += d_h + "時 ";
             }
             if (d_h != 0) {
                 sum += d_h + "時 ";
