@@ -39,7 +39,7 @@
             box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
             background-color: rgb(255, 255, 255);
             padding: 5px 30px 5px 5px;
-            margin-top: 10px;
+            margin-bottom: 10px;
             position: relative;
         }
 
@@ -70,15 +70,16 @@
             font-family: "微軟正黑體";
             border: 3px solid #0094ff;
             background-color: rgb(255, 255, 255);
-            margin-top: 20px;
-             margin-left: 20px;
+            margin-top: 10px;
+            margin-left: 10px;
             width: 300px;
-
         }
 
         .top_t {
             font-size: 30px;
-            margin-left: 20px;
+            margin-top: 10px;
+            margin-left: 10px;
+            display: inline-block;
         }
     </style>
 
@@ -95,7 +96,7 @@
                 s = s.replace(/\%20/g, ' ');
 
                 document.getElementById("t01").value = s;
-            } catch (e) {            }
+            } catch (e) { }
 
         }
 
@@ -304,5 +305,11 @@
             <div class="but" onclick="but_full('d_s')"></div>
         </div>
     </div>
+
+    <hr>
+
+    說明：輸入時間後就會自動計算出差距的時間，格式為年月日時分秒。例如：2017-03-27/08:28:27<br>
+    作者：<a href="https://home.gamer.com.tw/homeindex.php?owner=hbl917070" target="_blank">hbl917070 (深海異音)</a>
+
 </body>
 </html>
