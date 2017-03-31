@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>calc time</title>
+
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+
+
+    <style type="text/css">
+        html, body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        html {
+            font-family: "微軟正黑體";
+            background-color: rgb(242, 242, 242);
+        }
+
+        #c {
+            margin: auto;
+            padding: 10px;
+        }
+
+        .tit {
+            font-size: 30px;
+        }
+
+        .txt {
+            color: rgb(121, 185, 209);
+            font-size: 40px;
+        }
+
+        .box {
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+            background-color: rgb(255, 255, 255);
+            padding: 5px 30px 5px 5px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+            .box .but {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                bottom: 0px;
+                width: 30px;
+                background-color: rgb(94, 181, 255);
+                background-image: url(copy-icon.png);
+                background-position: center center; /*對齊位置*/
+                background-repeat: no-repeat; /*不重複*/
+                background-size: contain; /*自動填滿（contain、cover）*/
+            }
+
+                .box .but:hover {
+                    background-color: rgb(45, 255, 159);
+                }
+
+                .box .but:active {
+                    background-color: rgb(45, 197, 255);
+                }
+
+        input[type=text] {
+            font-size: 30px;
+            padding: 5px;
+            font-family: "微軟正黑體";
+            border: 3px solid #0094ff;
+            background-color: rgb(255, 255, 255);
+            margin-top: 20px;
+             margin-left: 20px;
+            width: 300px;
+
+        }
+
+        .top_t {
+            font-size: 30px;
+            margin-left: 20px;
+        }
+    </style>
+
+
+
+    <script type="text/javascript">
+
+
+
+        window.onload = function () {
+            try {
+
+                var s = location.search.replace(/\?/g, '');
+                s = s.replace(/\%20/g, ' ');
+
+                document.getElementById("t01").value = s;
+            } catch (e) {            }
+
+        }
+
+
+        function start() {
+            setTimeout("start()", 1000);
+            fun();
+        }
+
+
+        start();
+
+
+        function fun() {
+
+            var s = document.getElementById("t01").value.trim();
+            s = s.replace(/\-/g, ',');
+            s = s.replace(/\_/g, ',');
+            s = s.replace(/\//g, ',');
+            s = s.replace(/\ /g, ',');
+            s = s.replace(/\:/g, ',');
+            s = s.replace(/\;/g, ',');
+            s = s.replace(/\./g, ',');
+            s = s.replace(/\\t/g, ',');
+
+            s = s.replace(/\－/g, ',');
+            s = s.replace(/\＿/g, ',');
+            s = s.replace(/\／/g, ',');
+            s = s.replace(/\　/g, ',');
+            s = s.replace(/\：/g, ',');
+            s = s.replace(/\；/g, ',');
+
+            for (var i = 0; i < 3; i++) {
+                s = s.replace(/\,,/g, ',');
+            }
+
+            var ar_s = s.split(",");
+
+            var d_y = ar_s[0];
+            var d_M = ar_s[1];
+            var d_d = ar_s[2];
+
+            var d_h = ar_s[3];
+            var d_m = ar_s[4];
+            var d_s = ar_s[5];
+
+            var d = new Date();
+
+            var Date_A = new Date(d_y, d_M, d_d, d_h, d_m, d_s);
+            var Date_B = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+            var Date_C = new Date(Date_B - Date_A);
+            fun_修改標題(1);
+            if (Date_C.getTime() < 0) {
+                Date_C = new Date(Date_A - Date_B);
+                fun_修改標題(0);
+            }
+
+
+            show_完整年月日(Date_C);
+            show_時分秒(Date_C);
+
+        }
+
+
+
+        /*
+        * 0=剩餘 1=已過
+        */
+        function fun_修改標題(x) {
+
+            if (x == 0) {
+
+                if (document.getElementById("tit_full").innerHTML == "剩餘時間") {
+                    return;
+                }
+
+                document.getElementById("tit_full").innerHTML = "剩餘時間";
+                document.getElementById("tit_h").innerHTML = "剩餘小時數";
+                document.getElementById("tit_m").innerHTML = "剩餘分鐘數";
+                document.getElementById("tit_s").innerHTML = "剩餘秒數";
+            } else if (x == 1) {
+
+                if (document.getElementById("tit_full").innerHTML == "已過時間") {
+                    return;
+                }
+
+                document.getElementById("tit_full").innerHTML = "已過時間";
+                document.getElementById("tit_h").innerHTML = "已過小時數";
+                document.getElementById("tit_m").innerHTML = "已過分鐘數";
+                document.getElementById("tit_s").innerHTML = "已過秒數";
+            }
+
+
+        }
+
+
+
+        /*
+        *
+        */
+        function show_時分秒(Date_C) {
+            document.getElementById("d_h").innerHTML = Math.floor(Date_C.getTime() / 3600000) + "時";
+            document.getElementById("d_m").innerHTML = Math.floor(Date_C.getTime() / 60000) + "分";
+            document.getElementById("d_s").innerHTML = Math.floor(Date_C.getTime() / 1000) + "秒";
+
+        }
+
+
+
+        /*
+        *
+        */
+        function show_完整年月日(Date_C) {
+
+            var d_y = Date_C.getFullYear() - 1970;
+            var d_M = Date_C.getMonth();
+            var d_d = Date_C.getDate() - 1;
+
+            var d_h = Date_C.getUTCHours();
+            var d_m = Date_C.getUTCMinutes();
+            var d_s = Date_C.getUTCSeconds();
+
+            var sum = "";
+
+            if (d_y != 0) {
+                sum += d_y + "年 ";
+            }
+            if (d_M != 0) {
+                sum += d_M + "月 ";
+            }
+            if (d_d != 0) {
+                sum += d_d + "日  ";
+            }
+            if (d_h != 0) {
+                sum += d_h + "時 ";
+            }
+            if (d_h != 0) {
+                sum += d_h + "時 ";
+            }
+            if (d_m != 0) {
+                sum += d_m + "分 ";
+            }
+            if (d_s != 0) {
+                sum += d_s + "秒";
+            }
+
+            document.getElementById("d_full").innerHTML = sum;
+
+        }
+
+
+        /*
+        * 複製到剪貼簿
+        */
+        function copy(s) {
+            var clip_area = document.createElement('textarea');
+            clip_area.textContent = s;
+
+            document.body.appendChild(clip_area);
+            clip_area.select();
+
+            document.execCommand('copy');
+            clip_area.remove();
+        }
+
+        /*
+        *
+        */
+        function but_full(t) {
+            copy(document.getElementById(t).innerHTML);
+        }
+
+    </script>
+
+
+</head>
+<body>
+
+
+
+    <a class="top_t">時間</a><input id="t01" type="text" value="2012-07-10 20:12:31" />
+
+
+
+    <div id="c">
+
+        <div class="box">
+            <div class="tit" id="tit_full">已過時間</div>
+            <div id="d_full" class="txt"></div>
+            <div class="but" onclick="but_full('d_full')"></div>
+        </div>
+
+        <div class="box">
+            <div class="tit" id="tit_h">已過小時數</div>
+            <div id="d_h" class="txt"></div>
+            <div class="but" onclick="but_full('d_h')"></div>
+        </div>
+        <div class="box">
+            <div class="tit" id="tit_m">已過分鐘數</div>
+            <div id="d_m" class="txt"></div>
+            <div class="but" onclick="but_full('d_m')"></div>
+        </div>
+        <div class="box">
+            <div class="tit" id="tit_s">已過秒數</div>
+            <div id="d_s" class="txt"></div>
+            <div class="but" onclick="but_full('d_s')"></div>
+        </div>
+    </div>
+</body>
+</html>
