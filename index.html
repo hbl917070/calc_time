@@ -145,10 +145,13 @@
 
             var d = new Date();
 
-            var Date_A = new Date(d_y, d_M, d_d, d_h, d_m, d_s);
-            var Date_B = new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
-            var Date_C = new Date(Date_B - Date_A);
+            var Date_A = new Date(d_y, d_M-1, d_d, d_h, d_m, d_s);
+            var Date_B = new Date(d.getFullYear(), d.getMonth() , d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+            var Date_C =new Date( Date_B - Date_A);
+
+
             fun_修改標題(1);
+
             if (Date_C.getTime() < 0) {
                 Date_C = new Date(Date_A - Date_B);
                 fun_修改標題(0);
@@ -306,9 +309,9 @@
         </div>
     </div>
 
-  
+
     <br>
-  <div style="height:1px;background-color:rgb(185, 185, 185);"></div>
+    <div style="height:1px;background-color:rgb(185, 185, 185);"></div>
     <br>
     說明：輸入時間後就會自動計算出差距的時間，格式為年月日時分秒。例如：2017-03-27/08:28:27<br><br>
     作者：<a href="https://home.gamer.com.tw/homeindex.php?owner=hbl917070" target="_blank">hbl917070 (深海異音)</a>
