@@ -115,6 +115,13 @@
 
                 fun();
             } catch (e) { }
+
+
+            document.getElementById("t01").onchange = function () {
+                var x = document.getElementById("t01").value;
+                window.history.pushState({}, 0, 'http://' + window.location.host + '/calc_time/index.html?' + x);
+            };
+
         }
 
         /*
