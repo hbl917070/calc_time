@@ -119,8 +119,10 @@
 
             document.getElementById("t01").onchange = function () {
                 var x = document.getElementById("t01").value;
-                window.history.pushState({}, 0, 'http://' + window.location.host + '/calc_time/index.html?' + x);
-            };
+                document.getElementById("a_url").href = "?" + x;
+                document.getElementById("a_url").click();
+
+             };
 
         }
 
@@ -338,6 +340,8 @@
 </head>
 <body>
 
+    <!--修改網址用-->
+    <a href="" id="a_url" style="display:none"></a>
 
 
     <a class="top_t">時間</a><input id="t01" type="text" value="2012-07-10 20:12:31" placeholder="年/月/日/時/分/秒" />
@@ -374,7 +378,7 @@
         <div style="height:1px;background-color:rgb(185, 185, 185);"></div>
         <br>
         說明：輸入時間後，可計算跟目前時間的差距，格式為【年/月/日/時/分/秒】。例如：2017-03-27/08:28:27<br><br>
-        版本：1.0.2<br><br>
+        版本：1.0.3<br><br>
         作者：<a href="https://home.gamer.com.tw/homeindex.php?owner=hbl917070" target="_blank">hbl917070 (深海異音)</a>
         <br><br>
     </div>
